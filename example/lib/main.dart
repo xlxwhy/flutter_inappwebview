@@ -1,18 +1,40 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+ 
+import 'app.dart';
 
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_inappwebview_example/chrome_safari_browser_example.screen.dart';
-import 'package:flutter_inappwebview_example/in_app_webiew_example.screen.dart';
-import 'package:flutter_inappwebview_example/in_app_browser_example.screen.dart';
-
-// InAppLocalhostServer localhostServer = new InAppLocalhostServer();
-
-Future main() async {
-  // await localhostServer.start();
+ 
+Future main() async { 
   runApp(new MyApp());
 }
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => new _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+  }
+  @override
+  void dispose() {
+    super.dispose();
+  }
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: "民为天商城",
+        initialRoute: '/',
+        routes: {
+          '/': (context) => ChromeSafariBrowserExampleScreen(), 
+        }
+    );
+  }
+}
+
 
 Drawer myDrawer({@required BuildContext context}) {
   return Drawer(
@@ -46,34 +68,4 @@ Drawer myDrawer({@required BuildContext context}) {
       ],
     ),
   );
-}
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => new _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        initialRoute: '/',
-        routes: {
-          '/': (context) => InAppWebViewExampleScreen(),
-          '/InAppBrowser': (context) => InAppBrowserExampleScreen(),
-          '/ChromeSafariBrowser': (context) => ChromeSafariBrowserExampleScreen(),
-        }
-    );
-  }
 }

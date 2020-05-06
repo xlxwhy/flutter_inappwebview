@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import io.flutter.plugin.common.MethodChannel;
 
@@ -72,6 +73,11 @@ public class InAppBrowserActivity extends AppCompatActivity {
     webView.options = webViewOptions;
 
     InAppWebViewFlutterPlugin.inAppBrowser.webViewActivities.put(uuid, this);
+
+    SystemBarTintManager mTintManager = new SystemBarTintManager(this);
+    mTintManager.setStatusBarTintEnabled(true);
+    mTintManager.setNavigationBarTintEnabled(true);  
+    // mTintManager.setStatusBarTintResource(R.color.white);
 
     actionBar = getSupportActionBar();
 

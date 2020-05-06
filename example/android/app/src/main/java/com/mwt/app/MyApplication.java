@@ -1,4 +1,4 @@
-package com.pichillilorenzo.flutterwebviewexample;
+package com.mwt.app;
 
 import io.flutter.app.FlutterApplication;
 import io.flutter.plugin.common.PluginRegistry;

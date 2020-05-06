@@ -4,8 +4,12 @@
 
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
-
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#e20606</item>
+        <item name="colorPrimaryDark">#e20606</item>
+        <item name="colorAccent">#e20606</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="android:clipToPadding">false</item>
     </style>
 
     <style name="ThemeTransparent" parent="android:Theme">

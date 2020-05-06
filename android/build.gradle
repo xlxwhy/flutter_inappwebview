@@ -49,6 +49,7 @@ android {
         implementation 'androidx.browser:browser:1.0.0'
         implementation 'androidx.appcompat:appcompat:1.0.0'
         implementation 'com.squareup.okhttp3:mockwebserver:3.11.0'
+        implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     }
 }
 

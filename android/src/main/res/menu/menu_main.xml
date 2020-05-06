@@ -32,13 +32,13 @@
         android:orderInCategory="103"
         android:onClick="reloadButtonClicked"
         app:showAsAction="never"/>
-
+<!-- 
     <item
         android:id="@+id/action_close"
         android:title="@string/action_close"
         android:orderInCategory="104"
         android:onClick="closeButtonClicked"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
 
     <item
         android:id="@+id/menu_search"

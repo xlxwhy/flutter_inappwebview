@@ -1,4 +1,4 @@
-package com.pichillilorenzo.flutterwebviewexample;
+package com.mwt.app;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

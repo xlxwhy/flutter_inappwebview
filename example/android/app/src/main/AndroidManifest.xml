@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.pichillilorenzo.flutterwebviewexample">
+    package="com.mwt.app">
 
     <!-- The INTERNET permission is required for development. Specifically,
          flutter needs it to communicate with the running application
@@ -28,7 +28,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name=".MyApplication"
-        android:label="flutter_inappwebview_example"
+        android:label="民为天商城"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -63,3 +63,5 @@
 
     </application>
 </manifest>
+
+
