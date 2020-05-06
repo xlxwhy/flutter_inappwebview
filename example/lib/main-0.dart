@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:flutter_inappwebview_example/chrome_safari_browser_example.screen.dart';
-import 'package:flutter_inappwebview_example/in_app_webiew_example.screen.dart';
-import 'package:flutter_inappwebview_example/in_app_browser_example.screen.dart';
+import 'chrome_safari_browser_example.screen.dart';
+import 'in_app_webiew_example.screen.dart';
+import 'in_app_browser_example.screen.dart';
 
 // InAppLocalhostServer localhostServer = new InAppLocalhostServer();
 
