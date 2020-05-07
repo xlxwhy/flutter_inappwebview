@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
  
 import 'app.dart';
+import 'app_webview.dart';
+import 'app_browser.dart';
 
  
 Future main() async { 
@@ -18,22 +20,32 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    print("main:initState");
   }
   @override
   void dispose() {
     super.dispose();
+    print("main:dispose");
   }
   @override
   Widget build(BuildContext context) {
+    print("main:build");
     return MaterialApp(
         title: "民为天商城",
+        debugShowCheckedModeBanner: false,
+        theme: new ThemeData(
+          primarySwatch: Colors.red,
+        ),
         initialRoute: '/',
         routes: {
-          '/': (context) => ChromeSafariBrowserExampleScreen(), 
+          // '/': (context) => InAppBrowserExampleScreen(), 
+          '/': (context) => AppBrower(), 
         }
     );
   }
 }
+
+
 
 
 Drawer myDrawer({@required BuildContext context}) {

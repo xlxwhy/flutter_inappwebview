@@ -94,6 +94,16 @@ public class InAppWebViewClient extends WebViewClient {
         } catch (android.content.ActivityNotFoundException e) {
           Log.e(LOG_TAG, "Error with " + url + ": " + e.toString());
         }
+      }      
+      else if (url.startsWith("weixin:")) {
+        try {
+          Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.setData(Uri.parse(url));
+          ((inAppBrowserActivity != null) ? inAppBrowserActivity : flutterWebView.activity).startActivity(intent);
+          return true;
+        } catch (android.content.ActivityNotFoundException e) {
+          Log.e(LOG_TAG, "Error with " + url + ": " + e.toString());
+        }
       }
       // If sms:5551212?body=This is the message
       else if (url.startsWith("sms:")) {
@@ -366,104 +376,110 @@ public class InAppWebViewClient extends WebViewClient {
     return x509Certificate;
   }
 
+
   @Override
   public void onReceivedSslError(final WebView view, final SslErrorHandler handler, final SslError error) {
-    URL url;
-    try {
-      url = new URL(error.getUrl());
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-      Log.e(LOG_TAG, e.getMessage());
-      handler.cancel();
-      return;
-    }
-
-    final String host = url.getHost();
-    final String protocol = url.getProtocol();
-    final String realm = null;
-    final int port = url.getPort();
-
-    Map<String, Object> obj = new HashMap<>();
-    if (inAppBrowserActivity != null)
-      obj.put("uuid", inAppBrowserActivity.uuid);
-    obj.put("host", host);
-    obj.put("protocol", protocol);
-    obj.put("realm", realm);
-    obj.put("port", port);
-    obj.put("error", error.getPrimaryError());
-    obj.put("serverCertificate", null);
-    try {
-      X509Certificate certificate;
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-        certificate = error.getCertificate().getX509Certificate();
-      } else {
-        certificate = getX509CertFromSslCertHack(error.getCertificate());
-      }
-      obj.put("serverCertificate", certificate.getEncoded());
-    } catch (CertificateEncodingException e) {
-      e.printStackTrace();
-      Log.e(LOG_TAG,e.getLocalizedMessage());
-    }
-
-    String message;
-    switch (error.getPrimaryError()) {
-      case SslError.SSL_DATE_INVALID:
-        message = "The date of the certificate is invalid";
-        break;
-      case SslError.SSL_EXPIRED:
-        message = "The certificate has expired";
-        break;
-      case SslError.SSL_IDMISMATCH:
-        message = "Hostname mismatch";
-        break;
-      default:
-      case SslError.SSL_INVALID:
-        message = "A generic error occurred";
-        break;
-      case SslError.SSL_NOTYETVALID:
-        message = "The certificate is not yet valid";
-        break;
-      case SslError.SSL_UNTRUSTED:
-        message = "The certificate authority is not trusted";
-        break;
-    }
-    obj.put("message", message);
-
-    Log.d(LOG_TAG, obj.toString());
-
-    getChannel().invokeMethod("onReceivedServerTrustAuthRequest", obj, new MethodChannel.Result() {
-      @Override
-      public void success(Object response) {
-        if (response != null) {
-          Map<String, Object> responseMap = (Map<String, Object>) response;
-          Integer action = (Integer) responseMap.get("action");
-          if (action != null) {
-            switch (action) {
-              case 1:
-                handler.proceed();
-                return;
-              case 0:
-              default:
-                handler.cancel();
-                return;
-            }
-          }
-        }
-
-        handler.cancel();
-      }
-
-      @Override
-      public void error(String s, String s1, Object o) {
-        Log.e(LOG_TAG, s + ", " + s1);
-      }
-
-      @Override
-      public void notImplemented() {
-        handler.cancel();
-      }
-    });
+    handler.proceed();
   }
+
+  // @Override
+  // public void onReceivedSslError(final WebView view, final SslErrorHandler handler, final SslError error) {
+  //   URL url;
+  //   try {
+  //     url = new URL(error.getUrl());
+  //   } catch (MalformedURLException e) {
+  //     e.printStackTrace();
+  //     Log.e(LOG_TAG, e.getMessage());
+  //     handler.cancel();
+  //     return;
+  //   }
+
+  //   final String host = url.getHost();
+  //   final String protocol = url.getProtocol();
+  //   final String realm = null;
+  //   final int port = url.getPort();
+
+  //   Map<String, Object> obj = new HashMap<>();
+  //   if (inAppBrowserActivity != null)
+  //     obj.put("uuid", inAppBrowserActivity.uuid);
+  //   obj.put("host", host);
+  //   obj.put("protocol", protocol);
+  //   obj.put("realm", realm);
+  //   obj.put("port", port);
+  //   obj.put("error", error.getPrimaryError());
+  //   obj.put("serverCertificate", null);
+  //   try {
+  //     X509Certificate certificate;
+  //     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+  //       certificate = error.getCertificate().getX509Certificate();
+  //     } else {
+  //       certificate = getX509CertFromSslCertHack(error.getCertificate());
+  //     }
+  //     obj.put("serverCertificate", certificate.getEncoded());
+  //   } catch (CertificateEncodingException e) {
+  //     e.printStackTrace();
+  //     Log.e(LOG_TAG,e.getLocalizedMessage());
+  //   }
+
+  //   String message;
+  //   switch (error.getPrimaryError()) {
+  //     case SslError.SSL_DATE_INVALID:
+  //       message = "The date of the certificate is invalid";
+  //       break;
+  //     case SslError.SSL_EXPIRED:
+  //       message = "The certificate has expired";
+  //       break;
+  //     case SslError.SSL_IDMISMATCH:
+  //       message = "Hostname mismatch";
+  //       break;
+  //     default:
+  //     case SslError.SSL_INVALID:
+  //       message = "A generic error occurred";
+  //       break;
+  //     case SslError.SSL_NOTYETVALID:
+  //       message = "The certificate is not yet valid";
+  //       break;
+  //     case SslError.SSL_UNTRUSTED:
+  //       message = "The certificate authority is not trusted";
+  //       break;
+  //   }
+  //   obj.put("message", message);
+
+  //   Log.d(LOG_TAG, obj.toString());
+
+  //   getChannel().invokeMethod("onReceivedServerTrustAuthRequest", obj, new MethodChannel.Result() {
+  //     @Override
+  //     public void success(Object response) {
+  //       if (response != null) {
+  //         Map<String, Object> responseMap = (Map<String, Object>) response;
+  //         Integer action = (Integer) responseMap.get("action");
+  //         if (action != null) {
+  //           switch (action) {
+  //             case 1:
+  //               handler.proceed();
+  //               return;
+  //             case 0:
+  //             default:
+  //               handler.cancel();
+  //               return;
+  //           }
+  //         }
+  //       }
+
+  //       handler.cancel();
+  //     }
+
+  //     @Override
+  //     public void error(String s, String s1, Object o) {
+  //       Log.e(LOG_TAG, s + ", " + s1);
+  //     }
+
+  //     @Override
+  //     public void notImplemented() {
+  //       handler.cancel();
+  //     }
+  //   });
+  // }
 
   @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
   @Override

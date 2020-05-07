@@ -261,10 +261,17 @@ public class InAppBrowserActivity extends AppCompatActivity {
 
   public boolean onKeyDown(int keyCode, KeyEvent event) {
     if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-      if (canGoBack())
+      if (canGoBack()){
+        Log.d(LOG_TAG, "canGoBack so go back");
         goBack();
-      else if (options.closeOnCannotGoBack)
+      }
+      else if (options.closeOnCannotGoBack){
+        Log.d(LOG_TAG, "can not GoBack so close webview");
         InAppWebViewFlutterPlugin.inAppBrowser.close(this, uuid, null);
+      }else{
+        Log.d(LOG_TAG, "closeOnCannotGoBack:"+options.closeOnCannotGoBack); 
+        moveTaskToBack(true);
+      }
       return true;
     }
     return super.onKeyDown(keyCode, event);

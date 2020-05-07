@@ -11,6 +11,6 @@ public class InAppBrowserOptions extends Options {
   public boolean hideUrlBar = true;
 
   public boolean hideTitleBar = false;
-  public boolean closeOnCannotGoBack = true;
+  public boolean closeOnCannotGoBack = false;
   public boolean progressBar = true;
 }

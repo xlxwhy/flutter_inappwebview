@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".InAppBrowserActivity">
 
-    <item
+    <!-- <item
         android:id="@+id/action_go_back"
         android:onClick="goBackButtonClicked"
         android:orderInCategory="100"
@@ -17,7 +17,7 @@
         android:title="@string/action_go_forward"
         android:orderInCategory="101"
         android:onClick="goForwardButtonClicked"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/> -->
 
     <item
         android:id="@+id/action_share"
